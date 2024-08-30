@@ -2,18 +2,18 @@ class Awswhoiam < Formula
   desc "A CLI tool to get AWS STS caller identity"
   homepage "https://github.com/mohsen0/awswhoiam"
   license "Apache License"
-  version "0.2.1"
+  version "0.3.0"
 
   on_macos do
     if Hardware::CPU.arm?
       url "https://github.com/mohsen0/awswhoiam/releases/download/v#{version}/awswhoiam_darwin_arm64"
-      sha256 "97efa13e2f919b6ebf4fca8faf364462fa1e9b58a023e2f46a80f51bf85a4fbd"
+      sha256 "668c374937623ea41d9ab928bc2e6dc94ee2247854b92f8262829d0adcc1c256"
       def install
         bin.install "awswhoiam_darwin_arm64" => "awswhoiam"
       end
     else
       url "https://github.com/mohsen0/awswhoiam/releases/download/v#{version}/awswhoiam_darwin_amd64"
-      sha256 "9df9a11ce3ef09e54588c48361758c7fedb82e1920af007ba7256133dccea783"
+      sha256 "bea8d9127a0ed293da5035810ac4befa1aea28de21a34c3c646fdd1964d7db09"
       def install
         bin.install "awswhoiam_darwin_amd64" => "awswhoiam"
       end
@@ -22,7 +22,7 @@ class Awswhoiam < Formula
 
   on_linux do
     url "https://github.com/mohsen0/awswhoiam/releases/download/v#{version}/awswhoiam_linux_amd64"
-    sha256 "a1f7f99c33ad0bff6e7f46e2fefc7e43c6f60f266436ed8feaf123720c421909"
+    sha256 "9106764aef1d769433495a83f52ba029e5a443f78e94fdb08037c568fc1485ff"
     def install
       bin.install "awswhoiam_linux_amd64" => "awswhoiam"
     end
