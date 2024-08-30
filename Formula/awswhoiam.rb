@@ -7,7 +7,7 @@ class AwsWhoIAm < Formula
   on_macos do
     if Hardware::CPU.arm?
       url "https://github.com/mohsen0/awswhoiam/releases/download/v#{version}/awswhoiam_darwin_arm64"
-      sha256 "fdc96c0c57d4fb7bdac0c47956487f493b54f2867cf2ec79eafed7f6de090154"
+      sha256 "e5d65f88a3f88e63e5eff216a27178c52343c86821da33a368943afde51ebcee"
       def install
         bin.install "awswhoiam_darwin_arm64" => "awswhoiam"
       end
