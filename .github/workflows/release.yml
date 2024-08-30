@@ -20,10 +20,7 @@ jobs:
 
     - name: Build binaries for multiple platforms
       run: |
-        mkdir -p build
-        GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o build/awswhoiam_linux_amd64 ./main.go
-        GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -o build/awswhoiam_windows_amd64.exe ./main.go
-        GOOS=darwin GOARCH=amd64 go build -ldflags="-s -w" -o build/awswhoiam_darwin_amd64 ./main.go
+        make build
 
     - name: Upload Release Assets
       uses: actions/upload-artifact@v4
