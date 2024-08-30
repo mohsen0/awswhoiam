@@ -21,6 +21,12 @@ For other environments, you can download the binary directly using curl. Replace
 VERSION=0.3.1
 curl -o ./awswhoiam -L "https://github.com/mohsen0/awswhoiam/releases/download/v${VERSION}/awswhoiam_linux_amd64"
 chmod +x ./awswhoiam
+./awswhoiam
+{
+    "UserId": "REDACTEDY471234567890:botocore-session-1632772568",
+    "Account": "012345678912",
+    "Arn": "arn:aws:sts::012345678912:assumed-role/your-iam-role/botocore-session-1632772568"
+}
 ```
 
 After downloading, make sure to set the executable permission on the binary.
