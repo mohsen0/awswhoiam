@@ -7,13 +7,13 @@ class Awswhoiam < Formula
   on_macos do
     if Hardware::CPU.arm?
       url "https://github.com/mohsen0/awswhoiam/releases/download/v#{version}/awswhoiam_darwin_arm64"
-      sha256 "668c374937623ea41d9ab928bc2e6dc94ee2247854b92f8262829d0adcc1c256"
+      sha256 "c21ce231d87cff6ae7446286e1e94ca19b791ab06423f18f4c918998224912ba"
       def install
         bin.install "awswhoiam_darwin_arm64" => "awswhoiam"
       end
     else
       url "https://github.com/mohsen0/awswhoiam/releases/download/v#{version}/awswhoiam_darwin_amd64"
-      sha256 "bea8d9127a0ed293da5035810ac4befa1aea28de21a34c3c646fdd1964d7db09"
+      sha256 "579ba00f3c5dc952141981509afbbdbe348f5441cbe41d5e1298795ed94436b7"
       def install
         bin.install "awswhoiam_darwin_amd64" => "awswhoiam"
       end
@@ -22,7 +22,7 @@ class Awswhoiam < Formula
 
   on_linux do
     url "https://github.com/mohsen0/awswhoiam/releases/download/v#{version}/awswhoiam_linux_amd64"
-    sha256 "9106764aef1d769433495a83f52ba029e5a443f78e94fdb08037c568fc1485ff"
+    sha256 "7e59036a86c7b4f014ab396e81e39d46c1442b3ac66e8562def24eade8f0d6f9"
     def install
       bin.install "awswhoiam_linux_amd64" => "awswhoiam"
     end
