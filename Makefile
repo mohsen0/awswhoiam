@@ -13,7 +13,7 @@ GO_RUN := $(GO) run
 .PHONY: build
 build: $(PLATFORMS)
 	@echo "Build complete for all specified platforms!"
-	sha256sum ./build/*
+	cd build; sha256sum * > sha256sum.txt
 
 # Cross-compile for different platforms
 $(PLATFORMS):
