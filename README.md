@@ -15,7 +15,7 @@ brew install awswhoiam
 
 ### Using Curl
 
-For other environments, you can download the binary directly using curl. Replace 0.2.1 with the desired version if needed.
+For other environments, you can download the binary directly using curl. Replace 0.3.1 with the desired version if needed.
 
 ```sh
 VERSION=0.3.1
