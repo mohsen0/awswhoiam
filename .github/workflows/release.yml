@@ -22,8 +22,17 @@ jobs:
       run: |
         make build
 
-    - name: Upload Release Assets
-      uses: actions/upload-artifact@v4
-      with:
-        name: awswhoiam
-        path: ./build/*
+    - name: Install GitHub CLI
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gh
+
+    - name: '📦 Create GitHub Release'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        TAG_NAME=${GITHUB_REF#refs/tags/}
+        gh release create $TAG_NAME \
+          --title "$TAG_NAME" \
+          --notes "Release $TAG_NAME" \
+          ./build/*
