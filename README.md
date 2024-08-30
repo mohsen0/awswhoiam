@@ -18,7 +18,7 @@ For other environments, you can download the binary directly using curl. Replace
 
 ```sh
 VERSION=0.3.1
-curl -o ./awswhoiam -L <https://github.com/mohsen0/awswhoiam/releases/download/v${VERSION}/awswhoiam_linux_amd64>
+curl -o ./awswhoiam -L "https://github.com/mohsen0/awswhoiam/releases/download/v${VERSION}/awswhoiam_linux_amd64"
 chmod +x ./awswhoiam
 ```
 
