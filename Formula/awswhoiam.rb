@@ -1,4 +1,4 @@
-class AwsWhoIAm < Formula
+class Awswhoiam < Formula
   desc "A CLI tool to get AWS STS caller identity"
   homepage "https://github.com/mohsen0/awswhoiam"
   license "Apache License"
