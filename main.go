@@ -12,7 +12,7 @@ import (
 )
 
 // Define the version of the program
-const version = "1.0.0"
+const version = "0.2.1"
 
 func main() {
 	// Define the output and version flags
