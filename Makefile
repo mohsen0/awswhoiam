@@ -31,7 +31,7 @@ run:
 .PHONY: test
 test:
 	@echo "Running tests..."
-	$(GO_TEST) ./...
+	$(GO_TEST) -v ./...
 
 # Clean the build directory
 .PHONY: clean

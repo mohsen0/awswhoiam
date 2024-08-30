@@ -15,42 +15,48 @@ import (
 const version = "0.2.1"
 
 func main() {
-	// Define the output and version flags
 	output := flag.String("output", "json", "Specify the output format: json or table")
 	flag.StringVar(output, "o", "json", "Specify the output format: json or table (short flag)")
 	showVersion := flag.Bool("version", false, "Show the version of the program")
 	flag.BoolVar(showVersion, "v", false, "Show the version of the program (short flag)")
 	flag.Parse()
 
-	// Handle the version flag
 	if *showVersion {
 		fmt.Println("AWS STS GetCallerIdentity Tool, version", version)
 		return
 	}
 
-	// Create a new session
-	sess := session.Must(session.NewSession())
-
-	// Create a new STS client
-	svc := sts.New(sess)
-
-	// Call GetCallerIdentity API
-	result, err := svc.GetCallerIdentity(&sts.GetCallerIdentityInput{})
+	result, err := getCallerIdentity()
 	if err != nil {
 		fmt.Println("Error", err)
 		os.Exit(1)
 	}
 
-	// Output in the requested format
-	switch *output {
+	err = handleOutput(result, *output)
+	if err != nil {
+		fmt.Println("Error", err)
+		os.Exit(1)
+	}
+}
+
+// getCallerIdentity retrieves the caller identity from AWS STS
+func getCallerIdentity() (*sts.GetCallerIdentityOutput, error) {
+	sess := session.Must(session.NewSession())
+	svc := sts.New(sess)
+	return svc.GetCallerIdentity(&sts.GetCallerIdentityInput{})
+}
+
+// handleOutput handles the result based on the output format
+func handleOutput(result *sts.GetCallerIdentityOutput, outputFormat string) error {
+	switch outputFormat {
 	case "json":
 		printJSON(result)
 	case "table":
 		printHorizontalTable(result)
 	default:
-		fmt.Println("Invalid output format. Use 'json' or 'table'.")
-		os.Exit(1)
+		return fmt.Errorf("Invalid output format. Use 'json' or 'table'.")
 	}
+	return nil
 }
 
 // printJSON outputs the result in JSON format
