@@ -17,7 +17,7 @@ build: $(PLATFORMS)
 # Cross-compile for different platforms
 $(PLATFORMS):
 	@echo "Building for $@..."
-	GOOS=$(word 1,$(subst /, ,$@)) GOARCH=$(word 2,$(subst /, ,$@)) $(GO_BUILD) -o $(BUILD_DIR)/$(APP_NAME)_$(word 1,$(subst /, ,$@))_$(word 2,$(subst /, ,$@)) $(SRC_DIR)/main.go
+	GOOS=$(word 1,$(subst /, ,$@)) GOARCH=$(word 2,$(subst /, ,$@)) $(GO_BUILD) -ldflags="-s -w" -o $(BUILD_DIR)/$(APP_NAME)_$(word 1,$(subst /, ,$@))_$(word 2,$(subst /, ,$@)) $(SRC_DIR)/main.go
 	@echo "Build complete for $@"
 
 # Run the application (current platform only)
