@@ -12,7 +12,7 @@ import (
 )
 
 // Define the version of the program
-const version = "0.2.1"
+const version = "0.3.1"
 
 func main() {
 	output := flag.String("output", "json", "Specify the output format: json or table")

@@ -2,7 +2,7 @@ class Awswhoiam < Formula
   desc "A CLI tool to get AWS STS caller identity"
   homepage "https://github.com/mohsen0/awswhoiam"
   license "Apache License"
-  version "0.3.0"
+  version "0.3.1"
 
   on_macos do
     if Hardware::CPU.arm?
