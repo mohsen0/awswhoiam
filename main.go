@@ -1,37 +1,78 @@
 package main
 
 import (
-	"context"
 	"encoding/json"
+	"flag"
 	"fmt"
-	"log"
+	"os"
+	"text/tabwriter"
 
-	"github.com/aws/aws-sdk-go-v2/config"
-	"github.com/aws/aws-sdk-go-v2/service/sts"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/sts"
 )
 
+// Define the version of the program
+const version = "1.0.0"
+
 func main() {
-	// Load the Shared AWS Configuration (from ~/.aws/config)
-	cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithRegion("us-east-1"))
-	if err != nil {
-		log.Fatalf("unable to load SDK config, %v", err)
+	// Define the output and version flags
+	output := flag.String("output", "json", "Specify the output format: json or table")
+	flag.StringVar(output, "o", "json", "Specify the output format: json or table (short flag)")
+	showVersion := flag.Bool("version", false, "Show the version of the program")
+	flag.BoolVar(showVersion, "v", false, "Show the version of the program (short flag)")
+	flag.Parse()
+
+	// Handle the version flag
+	if *showVersion {
+		fmt.Println("AWS STS GetCallerIdentity Tool, version", version)
+		return
 	}
+
+	// Create a new session
+	sess := session.Must(session.NewSession())
 
 	// Create a new STS client
-	svc := sts.NewFromConfig(cfg)
+	svc := sts.New(sess)
 
-	// Call the GetCallerIdentity operation
-	output, err := svc.GetCallerIdentity(context.TODO(), &sts.GetCallerIdentityInput{})
+	// Call GetCallerIdentity API
+	result, err := svc.GetCallerIdentity(&sts.GetCallerIdentityInput{})
 	if err != nil {
-		log.Fatalf("failed to get caller identity, %v", err)
+		fmt.Println("Error", err)
+		os.Exit(1)
 	}
 
-	// Convert the output to JSON
-	jsonOutput, err := json.MarshalIndent(output, "", "  ")
-	if err != nil {
-		log.Fatalf("failed to marshal output to JSON, %v", err)
+	// Output in the requested format
+	switch *output {
+	case "json":
+		printJSON(result)
+	case "table":
+		printHorizontalTable(result)
+	default:
+		fmt.Println("Invalid output format. Use 'json' or 'table'.")
+		os.Exit(1)
 	}
+}
 
-	// Print the JSON output
+// printJSON outputs the result in JSON format
+func printJSON(result *sts.GetCallerIdentityOutput) {
+	jsonOutput, err := json.MarshalIndent(result, "", "  ")
+	if err != nil {
+		fmt.Println("Error formatting JSON", err)
+		os.Exit(1)
+	}
 	fmt.Println(string(jsonOutput))
+}
+
+// printHorizontalTable outputs the result in a horizontal table format with -- as borders
+func printHorizontalTable(result *sts.GetCallerIdentityOutput) {
+	writer := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', 0)
+	fmt.Fprintln(writer, "Field\tValue")
+	fmt.Fprintln(writer, "----------------------------------------")
+	fmt.Fprintf(writer, "UserId\t%s\n", *result.UserId)
+	fmt.Fprintln(writer, "----------------------------------------")
+	fmt.Fprintf(writer, "Account\t%s\n", *result.Account)
+	fmt.Fprintln(writer, "----------------------------------------")
+	fmt.Fprintf(writer, "Arn\t%s\n", *result.Arn)
+	fmt.Fprintln(writer, "----------------------------------------")
+	writer.Flush()
 }
