@@ -2,7 +2,7 @@
 APP_NAME := awswhoiam
 SRC_DIR := .
 BUILD_DIR := ./build
-PLATFORMS := linux/amd64 windows/amd64 darwin/amd64
+PLATFORMS := linux/amd64 windows/amd64 darwin/amd64 darwin/arm64
 GO := go
 GO_BUILD := $(GO) build
 GO_CLEAN := $(GO) clean
